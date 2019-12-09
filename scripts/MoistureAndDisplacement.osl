@@ -5,17 +5,17 @@ float rgba2gray(color RGBA)
 
 
 shader MyDisplacement(
-        color Color = 0.0
+        color Height = 0.0
             [[ string help = "[in] Color of texture used as displacement magnitude."]] ,
         normal Normal = 0.0
             [[ string help = "[in] Normal Vector of object used as displacement direction."]] ,
-        float Scale = 0.05
+        float Scale = 1.0
             [[ string help = "[in] Scale with which the displacement is to be performed [0,100].",
                float min = 0, float max = 100 ]],
         color Moisture = 0.0
             [[ string help = "[in] Color of Moisture map."]] ,
         float Sealvl = 0.25
-        [[ string help = "[in] Scale with which the displacement is to be performed [0,100].",
+        [[ string help = "[in] Value for the sea lvl.",
                 float min = 0, float max = 1 ]],
         output vector Displacement = 0.0
             [[ string help = "[out] Displacement vector."]],
@@ -30,14 +30,14 @@ shader MyDisplacement(
     //printf("Height: %f \n", rgba2gray(Color));
     ScaleValue = Scale;
     
-    if ((rgba2gray(Color) * Scale)<= Sealvl){
+    if ((rgba2gray(Height) * Scale)<= Sealvl){
         //printf("Height: %f \n", rgba2gray(Color));
         Displacement = (Normal * Sealvl);
         VectorColorMap = vector(0.01, 0.01 , 0);
     }
     else{
-    Displacement = (Normal * rgba2gray(Color) * Scale);
-    VectorColorMap = vector(rgba2gray(Moisture),rgba2gray(Color), 0 );
+    Displacement = (Normal * rgba2gray(Height) * Scale);
+    VectorColorMap = vector(rgba2gray(Moisture),(rgba2gray(Height-(Sealvl/Scale)+0.09)), 0 );
     }
     
     //printf("Output: %f\n", Output);
