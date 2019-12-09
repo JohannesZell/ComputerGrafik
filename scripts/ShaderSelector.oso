@@ -1,0 +1,25 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -o C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\scripts\ShaderSelector.oso -IC:\Program Files\Blender Foundation\Blender\2.80\scripts\addons\cycles\shader
+shader MyDisplacement
+param	float	Height	0		%read{0,0} %write{2147483647,-1}
+param	color	Lambert	0 0 0		%read{4,4} %write{2147483647,-1}
+param	color	Phong	0 0 0		%read{3,3} %write{2147483647,-1}
+param	float	Sealvl	0.1		%read{1,1} %write{2147483647,-1}
+param	float	Scale	0		%read{0,0} %write{2147483647,-1}
+oparam	color	Output	0 0 0		%read{2147483647,-1} %write{3,4}
+temp	float	$tmp1	%read{1,1} %write{0,0}
+temp	int	$tmp2	%read{2,2} %write{1,1}
+code ___main___
+# scripts\ShaderSelector.osl:11
+#         Output = Phong;
+	mul		$tmp1 Height Scale 	%filename{"scripts\ShaderSelector.osl"} %line{11} %argrw{"wrr"}
+	le		$tmp2 $tmp1 Sealvl 	%argrw{"wrr"}
+	if		$tmp2 4 5 	%argrw{"r"}
+# scripts\ShaderSelector.osl:12
+#     else
+	assign		Output Phong 	%line{12} %argrw{"wr"}
+# scripts\ShaderSelector.osl:14
+# }
+	assign		Output Lambert 	%line{14} %argrw{"wr"}
+	end

@@ -1,0 +1,15 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -o C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\Moisture.oso -IC:\Program Files\Blender Foundation\Blender\2.80\scripts\addons\cycles\shader
+shader Moisture
+param	color	Height	0 0 0		%meta{string,help,"[in] Color of texture used as height."}  %read{0,0} %write{2147483647,-1}
+param	color	Moisture	0 0 0		%meta{string,help,"[in] Color of Moisture map."}  %read{1,1} %write{2147483647,-1}
+oparam	vector	Output	0 0 0		%meta{string,help,"[out] Displacement vector."}  %read{2147483647,-1} %write{1,1}
+temp	color	$tmp1	%read{2147483647,-1} %write{0,0}
+const	float	$const2	100		%read{0,1} %write{2147483647,-1}
+code ___main___
+# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\Moisture.osl:15
+#         Output = (Height * 100, Moisture * 100);
+	mul		$tmp1 Height $const2 	%filename{"C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\Moisture.osl"} %line{15} %argrw{"wrr"}
+	mul		Output Moisture $const2 	%argrw{"wrr"}
+	end

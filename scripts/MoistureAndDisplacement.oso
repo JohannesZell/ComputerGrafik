@@ -1,0 +1,113 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -o C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\scripts\MoistureAndDisplacement.oso -IC:\Program Files\Blender Foundation\Blender\2.80\scripts\addons\cycles\shader
+shader MyDisplacement
+param	color	Color	0 0 0		%meta{string,help,"[in] Color of texture used as displacement magnitude."}  %read{2,33} %write{2147483647,-1}
+param	normal	Normal	0 0 0		%meta{string,help,"[in] Normal Vector of object used as displacement direction."}  %read{11,20} %write{2147483647,-1}
+param	float	Scale	0.050000001		%meta{string,help,"[in] Scale with which the displacement is to be performed [0,100]."} %meta{float,min,0} %meta{float,max,100}  %read{0,21} %write{2147483647,-1}
+param	color	Moisture	0 0 0		%meta{string,help,"[in] Color of Moisture map."}  %read{23,26} %write{2147483647,-1}
+param	float	Sealvl	0.25		%meta{string,help,"[in] Scale with which the displacement is to be performed [0,100]."} %meta{float,min,0} %meta{float,max,1}  %read{9,11} %write{2147483647,-1}
+oparam	vector	Displacement	0 0 0		%meta{string,help,"[out] Displacement vector."}  %read{2147483647,-1} %write{11,21}
+oparam	vector	VectorColorMap	0 0 0		%meta{string,help,"[out] Vector for the color map."}  %read{2147483647,-1} %write{12,36}
+oparam	vector	ScaleValue	0 0 0		%meta{string,help,"[out] Scale value for the shader selector script."}  %read{2147483647,-1} %write{0,0}
+temp	float	$tmp1	%read{8,8} %write{7,7}
+const	string	$const1	"rgba2gray"		%read{1,29} %write{2147483647,-1}
+const	int	$const2	0		%read{2,30} %write{2147483647,-1}
+temp	float	$tmp2	%read{4,4} %write{2,2}
+const	int	$const3	1		%read{3,31} %write{2147483647,-1}
+temp	float	$tmp3	%read{4,4} %write{3,3}
+temp	float	$tmp4	%read{6,6} %write{4,4}
+const	int	$const4	2		%read{5,33} %write{2147483647,-1}
+temp	float	$tmp5	%read{6,6} %write{5,5}
+temp	float	$tmp6	%read{7,7} %write{6,6}
+const	float	$const5	3		%read{7,35} %write{2147483647,-1}
+temp	float	$tmp7	%read{9,9} %write{8,8}
+temp	int	$tmp8	%read{10,10} %write{9,9}
+const	vector	$const6	0.0099999998 0.0099999998 0		%read{12,12} %write{2147483647,-1}
+temp	float	$tmp9	%read{20,20} %write{19,19}
+temp	float	$tmp10	%read{16,16} %write{14,14}
+temp	float	$tmp11	%read{16,16} %write{15,15}
+temp	float	$tmp12	%read{18,18} %write{16,16}
+temp	float	$tmp13	%read{18,18} %write{17,17}
+temp	float	$tmp14	%read{19,19} %write{18,18}
+temp	normal	$tmp15	%read{21,21} %write{20,20}
+temp	float	$tmp16	%read{36,36} %write{28,28}
+temp	float	$tmp17	%read{25,25} %write{23,23}
+temp	float	$tmp18	%read{25,25} %write{24,24}
+temp	float	$tmp19	%read{27,27} %write{25,25}
+temp	float	$tmp20	%read{27,27} %write{26,26}
+temp	float	$tmp21	%read{28,28} %write{27,27}
+temp	float	$tmp22	%read{36,36} %write{35,35}
+temp	float	$tmp23	%read{32,32} %write{30,30}
+temp	float	$tmp24	%read{32,32} %write{31,31}
+temp	float	$tmp25	%read{34,34} %write{32,32}
+temp	float	$tmp26	%read{34,34} %write{33,33}
+temp	float	$tmp27	%read{35,35} %write{34,34}
+const	float	$const7	0		%read{36,36} %write{2147483647,-1}
+code ___main___
+# scripts\MoistureAndDisplacement.osl:32
+#     
+	assign		ScaleValue Scale 	%filename{"scripts\MoistureAndDisplacement.osl"} %line{32} %argrw{"wr"}
+# scripts\MoistureAndDisplacement.osl:34
+#         //printf("Height: %f \n", rgba2gray(Color));
+	functioncall	$const1 8 	%line{34} %argrw{"r"}
+# scripts\MoistureAndDisplacement.osl:4
+# }
+	compref		$tmp2 Color $const2 	%line{4} %argrw{"wrr"}
+	compref		$tmp3 Color $const3 	%argrw{"wrr"}
+	add		$tmp4 $tmp2 $tmp3 	%argrw{"wrr"}
+	compref		$tmp5 Color $const4 	%argrw{"wrr"}
+	add		$tmp6 $tmp4 $tmp5 	%argrw{"wrr"}
+	div		$tmp1 $tmp6 $const5 	%argrw{"wrr"}
+# scripts\MoistureAndDisplacement.osl:34
+#         //printf("Height: %f \n", rgba2gray(Color));
+	mul		$tmp7 $tmp1 Scale 	%line{34} %argrw{"wrr"}
+	le		$tmp8 $tmp7 Sealvl 	%argrw{"wrr"}
+	if		$tmp8 13 37 	%argrw{"r"}
+# scripts\MoistureAndDisplacement.osl:36
+#         VectorColorMap = vector(0.01, 0.01 , 0);
+	mul		Displacement Normal Sealvl 	%line{36} %argrw{"wrr"}
+# scripts\MoistureAndDisplacement.osl:37
+#     }
+	assign		VectorColorMap $const6 	%line{37} %argrw{"wr"}
+# scripts\MoistureAndDisplacement.osl:40
+#     VectorColorMap = vector(rgba2gray(Moisture),rgba2gray(Color), 0 );
+	functioncall	$const1 20 	%line{40} %argrw{"r"}
+# scripts\MoistureAndDisplacement.osl:4
+# }
+	compref		$tmp10 Color $const2 	%line{4} %argrw{"wrr"}
+	compref		$tmp11 Color $const3 	%argrw{"wrr"}
+	add		$tmp12 $tmp10 $tmp11 	%argrw{"wrr"}
+	compref		$tmp13 Color $const4 	%argrw{"wrr"}
+	add		$tmp14 $tmp12 $tmp13 	%argrw{"wrr"}
+	div		$tmp9 $tmp14 $const5 	%argrw{"wrr"}
+# scripts\MoistureAndDisplacement.osl:40
+#     VectorColorMap = vector(rgba2gray(Moisture),rgba2gray(Color), 0 );
+	mul		$tmp15 Normal $tmp9 	%line{40} %argrw{"wrr"}
+	mul		Displacement $tmp15 Scale 	%argrw{"wrr"}
+# scripts\MoistureAndDisplacement.osl:41
+#     }
+	functioncall	$const1 29 	%line{41} %argrw{"r"}
+# scripts\MoistureAndDisplacement.osl:4
+# }
+	compref		$tmp17 Moisture $const2 	%line{4} %argrw{"wrr"}
+	compref		$tmp18 Moisture $const3 	%argrw{"wrr"}
+	add		$tmp19 $tmp17 $tmp18 	%argrw{"wrr"}
+	compref		$tmp20 Moisture $const4 	%argrw{"wrr"}
+	add		$tmp21 $tmp19 $tmp20 	%argrw{"wrr"}
+	div		$tmp16 $tmp21 $const5 	%argrw{"wrr"}
+# scripts\MoistureAndDisplacement.osl:41
+#     }
+	functioncall	$const1 36 	%line{41} %argrw{"r"}
+# scripts\MoistureAndDisplacement.osl:4
+# }
+	compref		$tmp23 Color $const2 	%line{4} %argrw{"wrr"}
+	compref		$tmp24 Color $const3 	%argrw{"wrr"}
+	add		$tmp25 $tmp23 $tmp24 	%argrw{"wrr"}
+	compref		$tmp26 Color $const4 	%argrw{"wrr"}
+	add		$tmp27 $tmp25 $tmp26 	%argrw{"wrr"}
+	div		$tmp22 $tmp27 $const5 	%argrw{"wrr"}
+# scripts\MoistureAndDisplacement.osl:41
+#     }
+	vector		VectorColorMap $tmp16 $tmp22 $const7 	%line{41} %argrw{"wrrr"}
+	end

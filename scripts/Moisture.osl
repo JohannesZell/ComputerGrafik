@@ -1,0 +1,16 @@
+shader Moisture(
+        color Height = 0.0
+            [[ string help = "[in] Color of texture used as height."]] ,
+        color Moisture = 0.0
+            [[ string help = "[in] Color of Moisture map."]] ,
+        output vector Output = 0.0
+            [[ string help = "[out] Displacement vector."]]
+    )
+    {   
+        //if (x <= 100){
+        //printf("Height: %f \n", Height);
+        //printf("Moisture: %f \n", Moisture);
+        //x++;
+        //}
+        Output = (Height * 100, Moisture * 100);
+    }

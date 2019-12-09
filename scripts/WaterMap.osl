@@ -1,0 +1,23 @@
+float rgba2gray(color RGBA)
+{
+    return (((RGBA[0] + RGBA[1] + RGBA[2]) / 3.0));
+}
+
+shader WaterMap(
+    float SeaLvl = 0.0
+        [[ string help = "[in] Value for the sealvl."]] ,
+    color Color = 0.0
+        [[ string help = "[in] Height value coming from the color map."]] ,
+    output color Height = 0.0
+        [[ string help = "[out] Height value."]]
+        )
+{
+    if(rgba2gray(Color) <= SeaLvl){
+        //printf("SeaLvl %f\n", rgba2gray(Color));
+        Height = color(0,0,0);
+    }
+    else{
+        Height = color(1,1,1);
+    }
+
+}

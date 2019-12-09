@@ -1,0 +1,44 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.9.9
+# options: -o C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\WaterMap.oso -IC:\Program Files\Blender Foundation\Blender\2.80\scripts\addons\cycles\shader
+shader WaterMap
+param	float	SeaLvl	0		%meta{string,help,"[in] Value for the sealvl."}  %read{7,7} %write{2147483647,-1}
+param	color	Color	0 0 0		%meta{string,help,"[in] Height value coming from the color map."}  %read{1,4} %write{2147483647,-1}
+oparam	color	Height	0 0 0		%meta{string,help,"[out] Height value."}  %read{2147483647,-1} %write{9,10}
+temp	float	$tmp1	%read{7,7} %write{6,6}
+const	string	$const1	"rgba2gray"		%read{0,0} %write{2147483647,-1}
+const	int	$const2	0		%read{1,1} %write{2147483647,-1}
+temp	float	$tmp2	%read{3,3} %write{1,1}
+const	int	$const3	1		%read{2,2} %write{2147483647,-1}
+temp	float	$tmp3	%read{3,3} %write{2,2}
+temp	float	$tmp4	%read{5,5} %write{3,3}
+const	int	$const4	2		%read{4,4} %write{2147483647,-1}
+temp	float	$tmp5	%read{5,5} %write{4,4}
+temp	float	$tmp6	%read{6,6} %write{5,5}
+const	float	$const5	3		%read{6,6} %write{2147483647,-1}
+temp	int	$tmp7	%read{8,8} %write{7,7}
+const	color	$const6	0 0 0		%read{9,9} %write{2147483647,-1}
+const	color	$const7	1 1 1		%read{10,10} %write{2147483647,-1}
+code ___main___
+# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\WaterMap.osl:15
+#     if(rgba2gray(Color) <= SeaLvl){
+	functioncall	$const1 7 	%filename{"C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\WaterMap.osl"} %line{15} %argrw{"r"}
+# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\WaterMap.osl:3
+#     return (((RGBA[0] + RGBA[1] + RGBA[2]) / 3.0));
+	compref		$tmp2 Color $const2 	%line{3} %argrw{"wrr"}
+	compref		$tmp3 Color $const3 	%argrw{"wrr"}
+	add		$tmp4 $tmp2 $tmp3 	%argrw{"wrr"}
+	compref		$tmp5 Color $const4 	%argrw{"wrr"}
+	add		$tmp6 $tmp4 $tmp5 	%argrw{"wrr"}
+	div		$tmp1 $tmp6 $const5 	%argrw{"wrr"}
+# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\WaterMap.osl:15
+#     if(rgba2gray(Color) <= SeaLvl){
+	le		$tmp7 $tmp1 SeaLvl 	%line{15} %argrw{"wrr"}
+	if		$tmp7 10 11 	%argrw{"r"}
+# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\WaterMap.osl:17
+#         Height = color(0,0,0);
+	assign		Height $const6 	%line{17} %argrw{"wr"}
+# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit2.0\WaterMap.osl:20
+#         Height = color(1,1,1);
+	assign		Height $const7 	%line{20} %argrw{"wr"}
+	end

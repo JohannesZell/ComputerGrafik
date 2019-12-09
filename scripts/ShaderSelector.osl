@@ -1,0 +1,14 @@
+shader MyDisplacement(
+        float Height = 0.0 ,
+        color Lambert = 0.0 ,
+        color Phong = 0.0 ,
+        float Sealvl = 0.1,
+        float Scale = 0.0,
+        output color Output = 0.0     
+    )
+{   
+    if(Height * Scale <= Sealvl)
+        Output = Phong;
+    else
+        Output = Lambert;
+}
