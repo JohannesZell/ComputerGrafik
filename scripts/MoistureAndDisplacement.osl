@@ -37,7 +37,11 @@ shader MyDisplacement(
     }
     else{
     Displacement = (Normal * rgba2gray(Height) * Scale);
-    VectorColorMap = vector(rgba2gray(Moisture),(rgba2gray(Height-(Sealvl/Scale)+0.09)), 0 );
+    //The vector for reading the colormap consists of two coordinates
+    //The x coordinate (vertical) is giving the moistureness and directly transalted by the value of the moisture map, reaching from 0..1
+    //The y coordinate is taking the value from the height map from 0..1, but needs to be adapted to the scalable sealevel
+    //for that matter, the sealevel (in relation to the scale, so a value from 0..1) is  
+    VectorColorMap = vector(rgba2gray(Moisture),(rgba2gray((Height-(Sealvl/Scale))*0.9+0.09)), 0 );
     }
     
     //printf("Output: %f\n", Output);

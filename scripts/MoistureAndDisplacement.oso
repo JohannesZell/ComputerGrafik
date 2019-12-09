@@ -8,19 +8,19 @@ param	float	Scale	1		%meta{string,help,"[in] Scale with which the displacement i
 param	color	Moisture	0 0 0		%meta{string,help,"[in] Color of Moisture map."}  %read{23,26} %write{2147483647,-1}
 param	float	Sealvl	0.25		%meta{string,help,"[in] Value for the sea lvl."} %meta{float,min,0} %meta{float,max,1}  %read{9,29} %write{2147483647,-1}
 oparam	vector	Displacement	0 0 0		%meta{string,help,"[out] Displacement vector."}  %read{2147483647,-1} %write{11,21}
-oparam	vector	VectorColorMap	0 0 0		%meta{string,help,"[out] Vector for the color map."}  %read{2147483647,-1} %write{12,39}
+oparam	vector	VectorColorMap	0 0 0		%meta{string,help,"[out] Vector for the color map."}  %read{2147483647,-1} %write{12,40}
 oparam	vector	ScaleValue	0 0 0		%meta{string,help,"[out] Scale value for the shader selector script."}  %read{2147483647,-1} %write{0,0}
 temp	float	$tmp1	%read{8,8} %write{7,7}
-const	string	$const1	"rgba2gray"		%read{1,32} %write{2147483647,-1}
-const	int	$const2	0		%read{2,33} %write{2147483647,-1}
+const	string	$const1	"rgba2gray"		%read{1,33} %write{2147483647,-1}
+const	int	$const2	0		%read{2,34} %write{2147483647,-1}
 temp	float	$tmp2	%read{4,4} %write{2,2}
-const	int	$const3	1		%read{3,34} %write{2147483647,-1}
+const	int	$const3	1		%read{3,35} %write{2147483647,-1}
 temp	float	$tmp3	%read{4,4} %write{3,3}
 temp	float	$tmp4	%read{6,6} %write{4,4}
-const	int	$const4	2		%read{5,36} %write{2147483647,-1}
+const	int	$const4	2		%read{5,37} %write{2147483647,-1}
 temp	float	$tmp5	%read{6,6} %write{5,5}
 temp	float	$tmp6	%read{7,7} %write{6,6}
-const	float	$const5	3		%read{7,38} %write{2147483647,-1}
+const	float	$const5	3		%read{7,39} %write{2147483647,-1}
 temp	float	$tmp7	%read{9,9} %write{8,8}
 temp	int	$tmp8	%read{10,10} %write{9,9}
 const	vector	$const6	0.0099999998 0.0099999998 0		%read{12,12} %write{2147483647,-1}
@@ -31,23 +31,25 @@ temp	float	$tmp12	%read{18,18} %write{16,16}
 temp	float	$tmp13	%read{18,18} %write{17,17}
 temp	float	$tmp14	%read{19,19} %write{18,18}
 temp	normal	$tmp15	%read{21,21} %write{20,20}
-temp	float	$tmp16	%read{39,39} %write{28,28}
+temp	float	$tmp16	%read{40,40} %write{28,28}
 temp	float	$tmp17	%read{25,25} %write{23,23}
 temp	float	$tmp18	%read{25,25} %write{24,24}
 temp	float	$tmp19	%read{27,27} %write{25,25}
 temp	float	$tmp20	%read{27,27} %write{26,26}
 temp	float	$tmp21	%read{28,28} %write{27,27}
-temp	float	$tmp22	%read{39,39} %write{38,38}
+temp	float	$tmp22	%read{40,40} %write{39,39}
 temp	float	$tmp23	%read{30,30} %write{29,29}
 temp	color	$tmp24	%read{31,31} %write{30,30}
-const	float	$const7	0.090000004		%read{31,31} %write{2147483647,-1}
-temp	color	$tmp25	%read{33,36} %write{31,31}
-temp	float	$tmp26	%read{35,35} %write{33,33}
-temp	float	$tmp27	%read{35,35} %write{34,34}
-temp	float	$tmp28	%read{37,37} %write{35,35}
-temp	float	$tmp29	%read{37,37} %write{36,36}
+const	float	$const7	0.89999998		%read{31,31} %write{2147483647,-1}
+temp	color	$tmp25	%read{32,32} %write{31,31}
+const	float	$const8	0.090000004		%read{32,32} %write{2147483647,-1}
+temp	color	$tmp26	%read{34,37} %write{32,32}
+temp	float	$tmp27	%read{36,36} %write{34,34}
+temp	float	$tmp28	%read{36,36} %write{35,35}
+temp	float	$tmp29	%read{38,38} %write{36,36}
 temp	float	$tmp30	%read{38,38} %write{37,37}
-const	float	$const8	0		%read{39,39} %write{2147483647,-1}
+temp	float	$tmp31	%read{39,39} %write{38,38}
+const	float	$const9	0		%read{40,40} %write{2147483647,-1}
 code ___main___
 # C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit\scripts\MoistureAndDisplacement.osl:31
 #     ScaleValue = Scale;
@@ -67,7 +69,7 @@ code ___main___
 #     if ((rgba2gray(Height) * Scale)<= Sealvl){
 	mul		$tmp7 $tmp1 Scale 	%line{33} %argrw{"wrr"}
 	le		$tmp8 $tmp7 Sealvl 	%argrw{"wrr"}
-	if		$tmp8 13 40 	%argrw{"r"}
+	if		$tmp8 13 41 	%argrw{"r"}
 # C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit\scripts\MoistureAndDisplacement.osl:35
 #         Displacement = (Normal * Sealvl);
 	mul		Displacement Normal Sealvl 	%line{35} %argrw{"wrr"}
@@ -89,9 +91,9 @@ code ___main___
 #     Displacement = (Normal * rgba2gray(Height) * Scale);
 	mul		$tmp15 Normal $tmp9 	%line{39} %argrw{"wrr"}
 	mul		Displacement $tmp15 Scale 	%argrw{"wrr"}
-# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit\scripts\MoistureAndDisplacement.osl:40
-#     VectorColorMap = vector(rgba2gray(Moisture),(rgba2gray(Height-(Sealvl/Scale)+0.09)), 0 );
-	functioncall	$const1 29 	%line{40} %argrw{"r"}
+# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit\scripts\MoistureAndDisplacement.osl:44
+#     VectorColorMap = vector(rgba2gray(Moisture),(rgba2gray((Height-(Sealvl/Scale))*0.9+0.09)), 0 );
+	functioncall	$const1 29 	%line{44} %argrw{"r"}
 # C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit\scripts\MoistureAndDisplacement.osl:3
 #     return (((RGBA[0] + RGBA[1] + RGBA[2]) / 3.0));
 	compref		$tmp17 Moisture $const2 	%line{3} %argrw{"wrr"}
@@ -100,21 +102,22 @@ code ___main___
 	compref		$tmp20 Moisture $const4 	%argrw{"wrr"}
 	add		$tmp21 $tmp19 $tmp20 	%argrw{"wrr"}
 	div		$tmp16 $tmp21 $const5 	%argrw{"wrr"}
-# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit\scripts\MoistureAndDisplacement.osl:40
-#     VectorColorMap = vector(rgba2gray(Moisture),(rgba2gray(Height-(Sealvl/Scale)+0.09)), 0 );
-	div		$tmp23 Sealvl Scale 	%line{40} %argrw{"wrr"}
+# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit\scripts\MoistureAndDisplacement.osl:44
+#     VectorColorMap = vector(rgba2gray(Moisture),(rgba2gray((Height-(Sealvl/Scale))*0.9+0.09)), 0 );
+	div		$tmp23 Sealvl Scale 	%line{44} %argrw{"wrr"}
 	sub		$tmp24 Height $tmp23 	%argrw{"wrr"}
-	add		$tmp25 $tmp24 $const7 	%argrw{"wrr"}
-	functioncall	$const1 39 	%argrw{"r"}
+	mul		$tmp25 $tmp24 $const7 	%argrw{"wrr"}
+	add		$tmp26 $tmp25 $const8 	%argrw{"wrr"}
+	functioncall	$const1 40 	%argrw{"r"}
 # C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit\scripts\MoistureAndDisplacement.osl:3
 #     return (((RGBA[0] + RGBA[1] + RGBA[2]) / 3.0));
-	compref		$tmp26 $tmp25 $const2 	%line{3} %argrw{"wrr"}
-	compref		$tmp27 $tmp25 $const3 	%argrw{"wrr"}
-	add		$tmp28 $tmp26 $tmp27 	%argrw{"wrr"}
-	compref		$tmp29 $tmp25 $const4 	%argrw{"wrr"}
-	add		$tmp30 $tmp28 $tmp29 	%argrw{"wrr"}
-	div		$tmp22 $tmp30 $const5 	%argrw{"wrr"}
-# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit\scripts\MoistureAndDisplacement.osl:40
-#     VectorColorMap = vector(rgba2gray(Moisture),(rgba2gray(Height-(Sealvl/Scale)+0.09)), 0 );
-	vector		VectorColorMap $tmp16 $tmp22 $const8 	%line{40} %argrw{"wrrr"}
+	compref		$tmp27 $tmp26 $const2 	%line{3} %argrw{"wrr"}
+	compref		$tmp28 $tmp26 $const3 	%argrw{"wrr"}
+	add		$tmp29 $tmp27 $tmp28 	%argrw{"wrr"}
+	compref		$tmp30 $tmp26 $const4 	%argrw{"wrr"}
+	add		$tmp31 $tmp29 $tmp30 	%argrw{"wrr"}
+	div		$tmp22 $tmp31 $const5 	%argrw{"wrr"}
+# C:\Users\BABA\Documents\ComputerGrafik\Abschlussarbeit\scripts\MoistureAndDisplacement.osl:44
+#     VectorColorMap = vector(rgba2gray(Moisture),(rgba2gray((Height-(Sealvl/Scale))*0.9+0.09)), 0 );
+	vector		VectorColorMap $tmp16 $tmp22 $const9 	%line{44} %argrw{"wrrr"}
 	end
