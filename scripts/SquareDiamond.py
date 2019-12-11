@@ -24,13 +24,6 @@ def convert_array_to_image(arr):
     return image
 
 def SquareDiamondAlgo(height, width):
-<<<<<<< HEAD
-=======
-    # The array must be square with edge length 2**n + 1
-    #n = 10
-    #N = 2**n + 1
->>>>>>> 95f6c81497c404deb331f4fb1d02972b25cbb235
-    
     # f scales the random numbers at each stage of the algorithm
     f = 1
 
