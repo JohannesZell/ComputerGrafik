@@ -1,6 +1,6 @@
 # ComputerGrafik
 
-##Teilnehmer
+## Teilnehmer
 Großmann Fabian
 Brache Hauke
 Zell Johannes
