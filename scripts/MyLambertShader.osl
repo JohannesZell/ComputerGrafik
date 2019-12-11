@@ -1,5 +1,3 @@
-#include "stdosl.h"
-
 shader MyLabertShading(normal Normal = N,                           
                        color AmbientColor = 1.0,
                        color DiffuseColor = 0.8,

@@ -1,10 +1,16 @@
-shader MyDisplacement(
-        float Height = 0.0 ,
-        color Lambert = 0.0 ,
-        color Phong = 0.0 ,
-        float Sealvl = 0.1,
-        float Scale = 0.0,
-        output color Output = 0.0     
+shader ShaderSelector(
+        float Height = 0.0
+        [[ string help = "[in] Color of texture used as height."]] ,
+        color Lambert = 0.0
+        [[ string help = "[in] Lambert shader."]] ,
+        color Phong = 0.0
+        [[ string help = "[in] Phong shader."]] ,
+        float Sealvl = 0.1
+        [[ string help = "[in] Sealvl for further computation."]] ,
+        float Scale = 0.0
+        [[ string help = "[in] Scale value."]] ,
+        output color Output = 0.0
+        [[ string help = "[out] Selected shader value."]]
     )
 {   
     if(Height * Scale <= Sealvl)
