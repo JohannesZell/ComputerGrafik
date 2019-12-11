@@ -37,7 +37,7 @@ def SquareDiamondAlgo(height, widht):
     # Initialise the array with random numbers at its corners
     arr = np.zeros((N, N))
     arr[0::N-1,0::N-1] = np.random.uniform(-1, 1, (2,2))
-    print(arr)
+    #print(arr)
     side = N-1
 
     nsquares = 1
@@ -82,7 +82,6 @@ def SquareDiamondAlgo(height, widht):
     return norm
         
 def MainSquareDiamond(height, width):
-    print("Hello")
     arr = SquareDiamondAlgo(height, width)
     img = convert_array_to_image(arr)
     img.filepath_raw = bpy.path.abspath("//") + "/textures/heightMap.png"
