@@ -1,6 +1,10 @@
 # ComputerGrafik
 
 ## Teilnehmer
-Großmann Fabian
-Brache Hauke
-Zell Johannes
+Alle Teilnehmer dieses Projekts:
+```bash
+Großmann Fabian  
+Brache Hauke  
+Zell Johannes  
+```
+
