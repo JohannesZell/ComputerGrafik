@@ -6,11 +6,6 @@ shader Moisture(
         output vector Output = 0.0
             [[ string help = "[out] Displacement vector."]]
     )
-    {   
-        //if (x <= 100){
-        //printf("Height: %f \n", Height);
-        //printf("Moisture: %f \n", Moisture);
-        //x++;
-        //}
+    {  
         Output = (Height * 100, Moisture * 100);
     }
