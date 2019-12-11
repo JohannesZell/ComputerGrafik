@@ -24,10 +24,10 @@ def convert_array_to_image(arr):
         
     return image
 
-def SquareDiamondAlgo(height, widht):
+def SquareDiamondAlgo(height, width):
     # The array must be square with edge length 2**n + 1
-    n = 10
-    N = 2**n + 1
+    #n = 10
+    #N = 2**n + 1
     
     # f scales the random numbers at each stage of the algorithm
     f = 1
@@ -35,10 +35,10 @@ def SquareDiamondAlgo(height, widht):
     #count = 1
 
     # Initialise the array with random numbers at its corners
-    arr = np.zeros((N, N))
-    arr[0::N-1,0::N-1] = np.random.uniform(-1, 1, (2,2))
+    arr = np.zeros((width+1, height+1))
+    arr[0::width,0::height] = np.random.uniform(-1, 1, (2,2))
     #print(arr)
-    side = N-1
+    side = width
 
     nsquares = 1
     while side > 1:
@@ -60,14 +60,14 @@ def SquareDiamondAlgo(height, widht):
             yc = sideo2 * iy
             for ix in range(nsquares+1):
                 xc = side * ix + sideo2 * (1 - iy % 2)
-                if not (0 <= xc < N and 0 <= yc < N):
+                if not (0 <= xc < width and 0 <= yc < height):
                     continue
                 tot, ntot = 0., 0
                 # Set this pixel to the mean of its "square" neighbours plus
                 # a random offset. At the edges, it has only three neighbours
                 for (dx, dy) in ((-1,0), (1,0), (0,-1), (0,1)):
                     xs, ys = xc + dx*sideo2, yc + dy*sideo2
-                    if not (0 <= xs < N and 0 <= ys < N):
+                    if not (0 <= xs < width and 0 <= ys < height):
                         continue
                     else:
                         tot += arr[ys, xs]
